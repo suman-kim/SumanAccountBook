@@ -2,7 +2,7 @@ package suman.store.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import suman.store.config.JwtConfig;
+
 import suman.store.domain.User;
 import suman.store.jsondata.JsonData;
 import suman.store.service.UserService;
@@ -23,7 +23,6 @@ import java.util.List;
 public class LoginController {
 
     private final UserService userService;
-    private final JwtConfig jwtConfig;
 
 
     @PostMapping("/login")
@@ -35,7 +34,6 @@ public class LoginController {
         JSONObject json = new JSONObject();
 
         if(!userCheck.isEmpty()){
-            json.put("token",jwtConfig.createToken(userCheck.get(0).getUserId(), Arrays.asList(userCheck.get(0).getUserRole().getValue())));
             error.setError_msg("정상적으로 로그인되었습니다.");
             error.setError_code(1);
         }

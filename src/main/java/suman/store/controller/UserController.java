@@ -1,9 +1,5 @@
 package suman.store.controller;
 
-
-
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
 import suman.store.domain.User;
 import suman.store.domain.UserDto;
 import suman.store.jsondata.JsonData;
@@ -24,11 +20,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/list")
-    public Object list(Authentication authentication){
+    public Object list(){
 
-        if(authentication == null){
-            throw new BadCredentialsException("회원 정보를 찾을 수 업습니다.");
-        }
 
         List<User> users = userService.findUsers();
         JsonData error = new JsonData();

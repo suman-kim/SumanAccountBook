@@ -2,15 +2,11 @@ package suman.store.domain;
 
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +14,7 @@ import java.util.Set;
 @Table(name = "user")
 @Getter
 @Setter
-public class User implements UserDetails {
+public class User {
 
     @Id @GeneratedValue
     @Column(name = "id")
@@ -48,45 +44,6 @@ public class User implements UserDetails {
         this.userId = userId;
         this.userRole = userRole;
 
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 계정의 권한 목록을 리턴
-        Set<GrantedAuthority> roles = new HashSet<>();
-        roles.add(new SimpleGrantedAuthority(userRole.getValue()));
-        return roles;
-    }
-
-
-    @Override
-    public String getPassword() {
-        return this.password; // 계정의 비밀번호 리턴
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userId; // 계정의 고유한 값 리턴
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
     }
 
 }
