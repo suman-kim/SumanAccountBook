@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -61,20 +62,25 @@ public class UserController {
         }else{
             error.setError_code(10);
             error.setError_msg("없는 유저입니다.");
-            return error;
+            json.put("code", error);
+            return json;
         }
     }
 
     @PostMapping("/user")
-    public Object create(@RequestBody UserDto userDto){
-
-        userService.save(userDto);
-
+    public Object create(@RequestBody @Valid UserDto userDto){
+        log.info("UserDto Body : {}", userDto);
         JSONObject json = new JSONObject();
         JsonData error = new JsonData();
-
-        error.setError_msg("성공적으로 추가되었습니다.");
-        error.setError_code(1);
+        Boolean check = userService.validateDuplicateUser(userDto);
+        if(check == true) {
+            userService.save(userDto);
+            error.setError_msg("성공적으로 추가되었습니다.");
+            error.setError_code(1);
+        }else{
+            error.setError_msg("아이디가 중복되었습니다.");
+            error.setError_code(10);
+        }
         json.put("code",error);
         return json;
     }
@@ -82,7 +88,7 @@ public class UserController {
     @DeleteMapping("/user/{userId}")
     public Object delete(@PathVariable("userId") Long userId){
 
-        Object userCheck = userService.findone(userId);
+        User userCheck = userService.findone(userId);
         JSONObject json = new JSONObject();
         JsonData error = new JsonData();
 
@@ -96,7 +102,8 @@ public class UserController {
         }else{
             error.setError_code(10);
             error.setError_msg("없는 유저입니다.");
-            return error;
+            json.put("code", error);
+            return json;
         }
     }
 
@@ -117,7 +124,8 @@ public class UserController {
         }else{
             error.setError_code(10);
             error.setError_msg("없는 유저입니다.");
-            return error;
+            json.put("code", error);
+            return json;
         }
     }
 }

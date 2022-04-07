@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class UserDto {
 
-    public String userId;
-    public String name;
-    public String password;
-    public String phone;
-    public String email;
-    public UserRole userRole;
+    private String userId;
+    private String name;
+    private String password;
+    private String phone;
+    private String email;
+    private UserRole userRole;
 }

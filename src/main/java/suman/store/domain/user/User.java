@@ -1,6 +1,7 @@
 package suman.store.domain.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import suman.store.domain.memo.Memo;
 
@@ -28,6 +29,7 @@ public class User {
     @NotNull
     private String name;
     @NotNull
+    @JsonIgnore
     private String password;
 
     @NotNull
@@ -41,6 +43,7 @@ public class User {
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Memo> memoList = new ArrayList<>();
 
     @Builder

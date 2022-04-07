@@ -15,7 +15,7 @@ public class UserRepository {
     private final EntityManager em;
 
     public List<User> findAll(){      //jpql                 //반환타입
-        return em.createQuery("select m from User m",User.class)
+        return em.createQuery("select u from User u",User.class)
                 .getResultList();
     }
 
@@ -23,15 +23,22 @@ public class UserRepository {
         return em.find(User.class, id);
     }
 
+    public List<User> findById(String userId){
+        return em.createQuery("select u from User u where u.userId = :userId" ,User.class)
+                .setParameter("userId",userId)
+                .getResultList();
+    }
+
+
     public void save(User userDto){
         em.persist(userDto);
     }
 
-    public void delete(Object user){
+    public void delete(User user){
         em.remove(user);
     }
 
-    public void update(Object user){
+    public void update(User user){
         em.merge(user);
     }
 

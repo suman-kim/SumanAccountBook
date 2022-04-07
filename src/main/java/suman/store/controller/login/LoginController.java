@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @Slf4j
 public class LoginController {
 
@@ -33,11 +33,13 @@ public class LoginController {
         JSONObject json = new JSONObject();
 
         if(!userCheck.isEmpty()){
+            json.put("data",userCheck.get(0));
             error.setError_msg("정상적으로 로그인되었습니다.");
             error.setError_code(1);
             log.info("로그인 성공");
         }
         else{
+            json.put("data","");
             error.setError_msg("없는 아이디거나 비밀번호가 틀립니다.");
             error.setError_code(8);
             log.info("로그인 실패");

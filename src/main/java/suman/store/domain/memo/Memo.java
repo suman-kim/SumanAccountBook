@@ -1,9 +1,8 @@
 package suman.store.domain.memo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.apache.tomcat.jni.Local;
 import suman.store.domain.user.User;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "memo")
-@Getter @Setter
+@Getter
 public class Memo {
 
     @Id @GeneratedValue
@@ -25,6 +24,7 @@ public class Memo {
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private User user;
 
     @NotNull
@@ -38,18 +38,30 @@ public class Memo {
     private MemoType memoType;
 
     @NotNull
-    private LocalDateTime Date;
+    private LocalDateTime date;
 
-    public static Memo createMemo(User user,Memo memoParam){
-        Memo memo = new Memo();
-        memo.setUser(user);
-        memo.setName(memoParam.getName());
-        memo.setMemoType(memoParam.getMemoType());
-        memo.setPrice(memoParam.getPrice());
-        memo.setDate(memoParam.getDate());
-        return memo;
+    @Column(name = "content")
+    private String content;
+
+    @Builder
+    public Memo(User user,Long price,String name, MemoType memoType,LocalDateTime date,String content) {
+        this.user = user;
+        this.price = price;
+        this.name = name;
+        this.memoType = memoType;
+        this.date = date;
+        this.content = content;
+
     }
 
+    public void UpdateMemo(Long price, String name, MemoType memoType, LocalDateTime date, String content){
+        this.price = price;
+        this.name = name;
+        this.memoType = memoType;
+        this.date = date;
+        this.content = content;
 
+
+    }
 
 }

@@ -27,9 +27,14 @@ public class UserService {
     public User findone(Long userId){
         return userRepository.findOne(userId);
     }
+    @Transactional(readOnly = true)
+    public List<User> findById(String userId){
+        return userRepository.findById(userId);
+    }
 
     @Transactional
     public void save(UserDto userDto){
+
         User user = User.builder()
                 .userId(userDto.getUserId())
                 .name(userDto.getName())
@@ -43,7 +48,7 @@ public class UserService {
     }
 
     @Transactional
-    public void delete(Object user){
+    public void delete(User user){
 
         userRepository.delete(user);
     }
@@ -61,6 +66,16 @@ public class UserService {
         User user = userRepository.findOne(userId);
         user.UpdateUser(userDto.getUserId(),userDto.getName(),userDto.getPhone(),userDto.getEmail());
 
+    }
+
+    //회원가입시 중복이름 유효성검사
+    public Boolean validateDuplicateUser(UserDto userDto) {
+        List<User> findMembers = userRepository.findById(userDto.getUserId());
+        if(!findMembers.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 }

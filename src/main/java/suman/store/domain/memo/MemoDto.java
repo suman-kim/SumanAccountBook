@@ -12,4 +12,5 @@ public class MemoDto {
     public String name;
     public MemoType memoType;
     public LocalDateTime date;
+    public String content;
 }
