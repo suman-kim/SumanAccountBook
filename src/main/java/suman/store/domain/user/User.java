@@ -1,11 +1,14 @@
-package suman.store.domain;
+package suman.store.domain.user;
 
 
 import lombok.*;
+import suman.store.domain.memo.Memo;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -13,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 @Getter
-@Setter
 public class User {
 
     @Id @GeneratedValue
@@ -38,11 +40,25 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    @OneToMany(mappedBy = "user")
+    private List<Memo> memoList = new ArrayList<>();
+
     @Builder
-    private User(String password, UserRole userRole, String userId) {
+    public User(String userId,String name,String password,String phone,String email, UserRole userRole) {
         this.password = password;
         this.userId = userId;
         this.userRole = userRole;
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+
+    }
+
+    public void UpdateUser(String userid, String name, String phone,String email){
+        this.userId = userid;
+        this.name =  name;
+        this.phone = phone;
+        this.email = email;
 
     }
 

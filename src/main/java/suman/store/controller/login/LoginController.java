@@ -1,11 +1,11 @@
-package suman.store.controller;
+package suman.store.controller.login;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import suman.store.domain.User;
+import suman.store.domain.user.User;
 import suman.store.jsondata.JsonData;
-import suman.store.service.UserService;
+import suman.store.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 @Slf4j
 public class LoginController {
 
@@ -36,10 +35,12 @@ public class LoginController {
         if(!userCheck.isEmpty()){
             error.setError_msg("정상적으로 로그인되었습니다.");
             error.setError_code(1);
+            log.info("로그인 성공");
         }
         else{
             error.setError_msg("없는 아이디거나 비밀번호가 틀립니다.");
             error.setError_code(8);
+            log.info("로그인 실패");
         }
 
         json.put("code",error);
@@ -57,10 +58,12 @@ public class LoginController {
         if(!userCheck.isEmpty()){
             error.setError_msg("정상적으로 로그아웃되었습니다.");
             error.setError_code(1);
+            log.info("로그아웃 성공");
         }
         else{
             error.setError_msg("없는 아이디거나 비밀번호가 틀립니다.");
             error.setError_code(8);
+            log.info("로그아웃 실패");
         }
         return error;
     }

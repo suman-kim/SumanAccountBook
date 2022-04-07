@@ -1,6 +1,6 @@
-package suman.store.repository;
+package suman.store.repository.user;
 
-import suman.store.domain.User;
+import suman.store.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Repository;

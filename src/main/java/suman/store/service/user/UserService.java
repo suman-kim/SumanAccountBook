@@ -1,9 +1,9 @@
-package suman.store.service;
+package suman.store.service.user;
 
 
-import suman.store.domain.User;
-import suman.store.domain.UserDto;
-import suman.store.repository.UserRepository;
+import suman.store.domain.user.User;
+import suman.store.domain.user.UserDto;
+import suman.store.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
@@ -30,13 +30,14 @@ public class UserService {
 
     @Transactional
     public void save(UserDto userDto){
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setUserId(userDto.getUserId());
-        user.setName(userDto.getName());
-        user.setPassword(userDto.getPassword());
-        user.setPhone(userDto.getPhone());
-        user.setUserRole(userDto.getUserRole());
+        User user = User.builder()
+                .userId(userDto.getUserId())
+                .name(userDto.getName())
+                .email(userDto.getEmail())
+                .phone(userDto.getPhone())
+                .userRole(userDto.getUserRole())
+                .password(userDto.getPassword())
+                .build();
 
         userRepository.save(user);
     }
@@ -58,10 +59,8 @@ public class UserService {
     @Transactional
     public void update(Long userId,UserDto userDto){
         User user = userRepository.findOne(userId);
-        user.setUserId(userDto.getUserId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPhone(userDto.getPhone());
+        user.UpdateUser(userDto.getUserId(),userDto.getName(),userDto.getPhone(),userDto.getEmail());
+
     }
 
 }

@@ -1,4 +1,4 @@
-package suman.store.domain;
+package suman.store.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,9 @@
-package suman.store.controller;
+package suman.store.controller.user;
 
-import suman.store.domain.User;
-import suman.store.domain.UserDto;
+import suman.store.domain.user.User;
+import suman.store.domain.user.UserDto;
 import suman.store.jsondata.JsonData;
-import suman.store.service.UserService;
+import suman.store.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -21,7 +21,6 @@ public class UserController {
 
     @GetMapping("/user/list")
     public Object list(){
-
 
         List<User> users = userService.findUsers();
         JsonData error = new JsonData();
