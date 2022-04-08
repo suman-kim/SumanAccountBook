@@ -22,17 +22,19 @@ public class UserController {
 
     @GetMapping("/user/list")
     public Object list(){
-
-        List<User> users = userService.findUsers();
+        JSONObject json = new JSONObject();
         JsonData error = new JsonData();
+        List<User> users = userService.findUsers();
+
         if(users.isEmpty()){
 
             error.setError_msg("유저를 추가하십시오.");
             error.setError_code(10);
-            return error;
+            json.put("code",error);
+            return json;
         }
         else {
-            JSONObject json = new JSONObject();
+
             error.setError_code(1);
             error.setError_msg("유저가 정상적으로 조회되었습니다.");
 

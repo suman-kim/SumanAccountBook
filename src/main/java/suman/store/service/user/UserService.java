@@ -41,7 +41,6 @@ public class UserService {
                 .email(userDto.getEmail())
                 .phone(userDto.getPhone())
                 .userRole(userDto.getUserRole())
-                .password(userDto.getPassword())
                 .build();
 
         userRepository.save(user);
