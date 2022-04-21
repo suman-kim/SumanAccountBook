@@ -25,7 +25,7 @@ public class UserController {
         JSONObject json = new JSONObject();
         JsonData error = new JsonData();
         List<User> users = userService.findUsers();
-        String asdf= "";
+        String asdf= "ㅁㄴㅇㄹ";
         if(users.isEmpty()){
 
             error.setError_msg("유저를 추가하십시오.");
