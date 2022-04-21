@@ -27,6 +27,7 @@ public class UserController {
         List<User> users = userService.findUsers();
         String asdf= "ㅁㄴㅇㄹ";
         String asdfz= "asdasd";
+        String zxcgmkamsk = "asdf";
         if(users.isEmpty()){
 
             error.setError_msg("유저를 추가하십시오.");
